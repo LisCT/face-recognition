@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import BoilerplatePage from '../components/BoilerplatePage';
+import HomePage from '../components/HomePage';
 import NotFoundPage from '../components/NotFoundPage';
 
 const AppRouter = () => (
@@ -9,7 +9,7 @@ const AppRouter = () => (
     <BrowserRouter>
         <div>
             <Switch>
-                <Route path="/" component={BoilerplatePage} exact />
+                <Route path="/" component={HomePage} exact />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>
