@@ -1,5 +1,6 @@
 # Face-Recognition Application
 
+Project that identify the face of a person in a picture.
 
 ## Repository
 
@@ -44,9 +45,7 @@ yarn run build:prod or npm run build:prod
 ## Changelog
 
 ```bash
-    * v1.0.1 updating webpack to allows otf fonts. Aug 18, 2018
-    * v1.0.2 updating react version 16.4.0. Aug 19, 2018
-    * v1.0.3 setup and configure ESLint. Aug 26, 2018 
+    * v1.0.1 
 ```
 ##  Dependencies
 
