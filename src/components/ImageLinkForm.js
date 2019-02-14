@@ -11,6 +11,7 @@ const ImageLinkForm = ({ onInputChange, onSubmit }) => (
             <button type="submit" onClick={onSubmit}> Detect </button>
         </div>
     </div>
+    
 );
 
 ImageLinkForm.propTypes = {

@@ -60,6 +60,16 @@
       "error",
       4
     ],
+    "no-trailing-spaces": [
+      0,
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "padded-blocks": [
+      "error",
+      "always"
+    ]
   },
   "plugins": [
     "react"

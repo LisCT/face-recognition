@@ -11,38 +11,79 @@ const app = new Clarifai.App({
 });
 
 class HomePage extends React.Component {
+
     state = {
 
         input: '',
-        imageUrl: ''
+        imageUrl: '',
+        box: {}
 
+    }
+
+     // creating an instace of the item to get the element
+     imgRef = React.createRef();
+
+     displayFaceBox = (item) => {
+
+         const box = { ...this.state.box };
+
+         box[`item${Date.now()}`] = item;
+
+         this.setState({ box });
+
+     }
+
+    calculateFaceLocation = (data) => {
+        
+        const facesDetected = data.outputs[0].data.regions;
+        const boundingBox = {};
+
+        return facesDetected.forEach((face) => {
+            
+            const clarifaiFace = face.region_info.bounding_box;
+            const image = this.imgRef.current;
+            const width = Number(image.width);
+            const height = Number(image.height);
+    
+            boundingBox.leftCol = clarifaiFace.left_col * width;
+            boundingBox.topRow = clarifaiFace.top_row * height;
+            boundingBox.righCol = width - (clarifaiFace.right_col * width);
+            boundingBox.bottomRow = height - (clarifaiFace.bottom_row * height) + 8;
+            
+            this.displayFaceBox(boundingBox);
+        
+        });
+    
     }
 
     onInputChange = (event) => {
+
         this.setState({ input: event.target.value });
+
     }
 
     onSubmit = () => {
+
         const { input } = this.state;
 
-        this.setState({ imageUrl: input });
+        this.setState({ imageUrl: input }, () => {
 
-        app.models
-            .predict(
-                Clarifai.GENERAL_MODEL,
-                // URL image here
-                'https://samples.clarifai.com/face-det.jpg'
-            )
-            .then((response) => {
-                console.log(response);
-            },
-            (err) => {
-                console.log(err);
-            });
+            // inside a callback to be able to use it right after has been updated
+            const { imageUrl } = this.state;
+
+            // face recognition happened here
+            app.models
+                .predict(Clarifai.FACE_DETECT_MODEL, imageUrl) // second paramether url image
+                .then(response => this.calculateFaceLocation(response))
+                .catch(err => console.log(err));
+
+        });
+
     }
 
     render() {
-        const { imageUrl } = this.state;
+
+        const { imageUrl, box } = this.state;
 
         return (
 
@@ -54,11 +95,13 @@ class HomePage extends React.Component {
                     onInputChange={this.onInputChange}
                     onSubmit={this.onSubmit}
                 />
-                <FaceRecognition imageUrl={imageUrl} />
+                <FaceRecognition imageUrl={imageUrl} imgRef={this.imgRef} box={box} />
             </div>
 
         );
+
     }
+
 }
 
 export default HomePage;
