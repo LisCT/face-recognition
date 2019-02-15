@@ -8,30 +8,40 @@ const FaceRecognition = ({ imageUrl, imgRef, box }) => (
         { imageUrl 
           && (
               <div className="bounding_box__wrapper">
-                  <img src={imageUrl} ref={imgRef} alt="dectected-preview" width="500px" height="auto" /> 
-                  {console.log(box)}
-                  {/*                   
-                  { Object.keys(this.props.portfolioItems).map( key => <ItemPortfolio key={key} itemDetails={this.props.portfolioItems[key]} />) } */}
+                  <img
+                      src={imageUrl} 
+                      ref={imgRef} 
+                      alt="dectected-preview"
+                      width="500px" 
+                      height="auto"
+                  /> 
                   
-                  <div 
-                      className="bounding-box" 
-                      style={{ 
-                          top: box.topRow,
-                          left: box.leftCol, 
-                          bottom: box.bottomRow,
-                          right: box.righCol 
-                      }}
-                  />
+                  {Object.keys(box).map(key => (
+                      <div
+                          className="bounding-box" 
+                          key={key}
+                          style={{ 
+                              top: box[key].topRow,
+                              left: box[key].leftCol, 
+                              bottom: box[key].bottomRow,
+                              right: box[key].righCol 
+                          }}
+                      />
+                  ))}
+
               </div>
           )
+
         }
+
     </div>
-    
+
 );
 
 FaceRecognition.propTypes = {
     imageUrl: PropTypes.string.isRequired,
-    imgRef: PropTypes.object.isRequired
+    imgRef: PropTypes.shape({ root: PropTypes.object }).isRequired,
+    box: PropTypes.shape({ root: PropTypes.object }).isRequired
 };
 
 export default FaceRecognition;

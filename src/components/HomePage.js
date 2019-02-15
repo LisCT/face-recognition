@@ -23,11 +23,8 @@ class HomePage extends React.Component {
      // creating an instace of the item to get the element
      imgRef = React.createRef();
 
-     displayFaceBox = (item) => {
 
-         const box = { ...this.state.box };
-
-         box[`item${Date.now()}`] = item;
+     displayFaceBox = (box) => {
 
          this.setState({ box });
 
@@ -38,22 +35,27 @@ class HomePage extends React.Component {
         const facesDetected = data.outputs[0].data.regions;
         const boundingBox = {};
 
-        return facesDetected.forEach((face) => {
+        facesDetected.forEach((face) => {
             
+         
             const clarifaiFace = face.region_info.bounding_box;
             const image = this.imgRef.current;
             const width = Number(image.width);
             const height = Number(image.height);
-    
-            boundingBox.leftCol = clarifaiFace.left_col * width;
-            boundingBox.topRow = clarifaiFace.top_row * height;
-            boundingBox.righCol = width - (clarifaiFace.right_col * width);
-            boundingBox.bottomRow = height - (clarifaiFace.bottom_row * height) + 8;
             
-            this.displayFaceBox(boundingBox);
-        
+            boundingBox[face.id] = {
+
+                leftCol: clarifaiFace.left_col * width,
+                topRow: clarifaiFace.top_row * height,
+                righCol: width - (clarifaiFace.right_col * width),
+                bottomRow: height - (clarifaiFace.bottom_row * height) + 8
+
+            };
+
         });
-    
+
+        return boundingBox;
+
     }
 
     onInputChange = (event) => {
@@ -74,7 +76,7 @@ class HomePage extends React.Component {
             // face recognition happened here
             app.models
                 .predict(Clarifai.FACE_DETECT_MODEL, imageUrl) // second paramether url image
-                .then(response => this.calculateFaceLocation(response))
+                .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
                 .catch(err => console.log(err));
 
         });
