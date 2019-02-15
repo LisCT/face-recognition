@@ -5,6 +5,8 @@ import Logo from './Logo';
 import ImageLinkForm from './ImageLinkForm';
 import Rank from './Rank';
 import FaceRecognition from './FaceRecognition';
+import Signin from './Log/Singin';
+import Register from './Log/Register';
 
 const app = new Clarifai.App({
     apiKey: '72bf4f7c90684ecd88498c2e8b44931a'
@@ -16,7 +18,10 @@ class HomePage extends React.Component {
 
         input: '',
         imageUrl: '',
-        box: {}
+        box: {},
+        route: 'signin',
+        isSingedIn: false
+        
 
     }
 
@@ -83,21 +88,57 @@ class HomePage extends React.Component {
 
     }
 
+    onRouteChange = (route) => {
+        
+        if (route !== 'home') {
+
+            this.setState({ isSingedIn: false }); 
+
+        } else {
+
+            this.setState({ isSingedIn: true }); 
+        
+        }
+
+        this.setState({ route });
+
+    }
+
     render() {
 
-        const { imageUrl, box } = this.state;
+        const {
+            
+            imageUrl, 
+            box, 
+            route, 
+            isSingedIn 
+
+        } = this.state;
 
         return (
 
             <div>
                 <Logo />
-                <Navegation />
-                <Rank />
-                <ImageLinkForm
-                    onInputChange={this.onInputChange}
-                    onSubmit={this.onSubmit}
-                />
-                <FaceRecognition imageUrl={imageUrl} imgRef={this.imgRef} box={box} />
+                <Navegation onRouteChange={this.onRouteChange} isSingedIn={isSingedIn} />
+                { route === 'home'
+                    ? (
+                        <div>
+                            <Rank />
+                            <ImageLinkForm
+                                onInputChange={this.onInputChange}
+                                onSubmit={this.onSubmit}
+                            />
+                            <FaceRecognition imageUrl={imageUrl} imgRef={this.imgRef} box={box} />
+                        </div>
+                    )
+
+                    : [( 
+                        route === 'signin'
+                            ? <Signin key="signin" onRouteChange={this.onRouteChange} />
+                            : <Register key="register" onRouteChange={this.onRouteChange} />
+                    )]
+
+                }
             </div>
 
         );
