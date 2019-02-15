@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, imgRef, box }) => (
     
