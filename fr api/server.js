@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs'); // encode passwords (security)
+const cors = require('cors'); // access from http request 
 
 /*
     END POINTS
@@ -15,12 +16,14 @@ const bcrypt = require('bcrypt-nodejs');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
     users: [
         {
             id: '123',
             name: 'John',
+            password: 'cookies',
             email: 'john@gmail.com',
             entries: 0,
             joined: new Date()
@@ -28,6 +31,7 @@ const database = {
         {
             id: '1234',
             name: 'Sally',
+            password: 'bananas',
             email: 'sally@gmail.com',
             entries: 0,
             joined: new Date()
@@ -65,13 +69,12 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
 
-    const { email, name, password } = req.body;
+    const { email, name } = req.body;
     database.users.push({
 
         id: '12345',
         name,
         email,
-        password,
         entries: 0,
         joined: new Date()
 
@@ -155,8 +158,8 @@ app.put('/image', (req, res) => {
 //     // res = false
 // });
 
-app.listen(3000, () => {
+app.listen(3001, () => {
 
-    console.log('app is running on port 3000');
+    console.log('app is running on port 3001');
 
 });

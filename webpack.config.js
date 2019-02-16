@@ -2,6 +2,7 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (env) => {
+
     const isProduction = env === 'production';
     const CSSExtract = new ExtractTextPlugin('css/styles.css');
 
@@ -56,5 +57,5 @@ module.exports = (env) => {
             historyApiFallback: true
         }
     };
-};
 
+};

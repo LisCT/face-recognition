@@ -1,9 +1,15 @@
 import React from 'react';
 
-const Rank = () => (
+const Rank = ({ name, entries }) => (
 
     <div>
-        <h2>Your current is: #5</h2>
+        <h2>
+            Hi 
+            {name}
+            , your current is: 
+            {entries}
+            
+        </h2>
     </div>
 
 );

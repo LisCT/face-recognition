@@ -20,20 +20,45 @@ class HomePage extends React.Component {
         imageUrl: '',
         box: {},
         route: 'signin',
-        isSingedIn: false
-        
+        isSingedIn: false,
+        user: {
+            id: '',
+            name: '',
+            password: '',
+            entries: 0,
+            joined: ''
+        }
 
     }
 
      // creating an instace of the item to get the element
      imgRef = React.createRef();
 
-
      displayFaceBox = (box) => {
 
          this.setState({ box });
 
      }
+
+    loadUser = (data) => {
+
+        const {
+
+            id, name, password, entries, joined
+
+        } = data;
+
+        this.setState({
+            user: { 
+                id,
+                name,
+                password,
+                entries,
+                joined
+            }
+        });
+    
+    }
 
     calculateFaceLocation = (data) => {
         
@@ -69,7 +94,7 @@ class HomePage extends React.Component {
 
     }
 
-    onSubmit = () => {
+    onPictureSubmit = () => {
 
         const { input } = this.state;
 
@@ -81,7 +106,11 @@ class HomePage extends React.Component {
             // face recognition happened here
             app.models
                 .predict(Clarifai.FACE_DETECT_MODEL, imageUrl) // second paramether url image
-                .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+                .then((response) => {
+                    
+                    this.displayFaceBox(this.calculateFaceLocation(response));
+                
+                })
                 .catch(err => console.log(err));
 
         });
@@ -107,35 +136,55 @@ class HomePage extends React.Component {
     render() {
 
         const {
-            
-            imageUrl, 
-            box, 
-            route, 
-            isSingedIn 
+
+            imageUrl, box, route, isSingedIn, user 
 
         } = this.state;
+
+        const { name, entries } = user;
 
         return (
 
             <div>
                 <Logo />
-                <Navegation onRouteChange={this.onRouteChange} isSingedIn={isSingedIn} />
+                <Navegation 
+                    onRouteChange={this.onRouteChange}
+                    isSingedIn={isSingedIn}
+                />
                 { route === 'home'
                     ? (
                         <div>
-                            <Rank />
+                            <Rank 
+                                name={name}
+                                entries={entries}
+                            />
                             <ImageLinkForm
                                 onInputChange={this.onInputChange}
-                                onSubmit={this.onSubmit}
+                                onPictureSubmit={this.onPictureSubmit}
                             />
-                            <FaceRecognition imageUrl={imageUrl} imgRef={this.imgRef} box={box} />
+                            <FaceRecognition 
+                                imageUrl={imageUrl}
+                                imgRef={this.imgRef}
+                                box={box}
+                            />
                         </div>
                     )
 
                     : [( 
                         route === 'signin'
-                            ? <Signin key="signin" onRouteChange={this.onRouteChange} />
-                            : <Register key="register" onRouteChange={this.onRouteChange} />
+                            ? (
+                                <Signin
+                                    key="signin"
+                                    onRouteChange={this.onRouteChange}
+                                />
+                            )
+                            : (
+                                <Register 
+                                    key="register" 
+                                    onRouteChange={this.onRouteChange}
+                                    loadUser={this.loadUser}
+                                />
+                            )
                     )]
 
                 }
