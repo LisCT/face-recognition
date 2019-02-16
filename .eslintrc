@@ -69,6 +69,19 @@
     "padded-blocks": [
       "error",
       "always"
+    ],
+    "consistent-return": 2,
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
     ]
   },
   "plugins": [
