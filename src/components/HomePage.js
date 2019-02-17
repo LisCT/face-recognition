@@ -57,7 +57,7 @@ class HomePage extends React.Component {
                 joined
             }
         });
-    
+
     }
 
     calculateFaceLocation = (data) => {
@@ -96,8 +96,9 @@ class HomePage extends React.Component {
 
     onPictureSubmit = () => {
 
-        const { input } = this.state;
-
+        const { input, user } = this.state;
+        const { id } = user;
+        
         this.setState({ imageUrl: input }, () => {
 
             // inside a callback to be able to use it right after has been updated
@@ -108,6 +109,34 @@ class HomePage extends React.Component {
                 .predict(Clarifai.FACE_DETECT_MODEL, imageUrl) // second paramether url image
                 .then((response) => {
                     
+                    if (response) {
+
+                        fetch('http://localhost:3001/image', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: (JSON.stringify({
+                                id
+                            }))
+
+                        })
+                            .then(res => res.json())
+                            .then((entries) => {
+
+                                /* Copy the actual the state, update de copy obj and 
+                                then the state to avoid the state to be replaced 
+                                with just the entries. */
+
+                                const userCopy = { ...user }; // copy the actual user
+                                userCopy.entries = entries; // update obj
+                                
+                                this.setState({ user: userCopy });
+                                
+                            
+                            });
+
+                    
+                    }
+
                     this.displayFaceBox(this.calculateFaceLocation(response));
                 
                 })
@@ -176,6 +205,7 @@ class HomePage extends React.Component {
                                 <Signin
                                     key="signin"
                                     onRouteChange={this.onRouteChange}
+                                    loadUser={this.loadUser}
                                 />
                             )
                             : (

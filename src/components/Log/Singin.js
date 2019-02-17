@@ -5,7 +5,8 @@ class Signin extends React.Component {
 
     static propTypes = {
 
-        onRouteChange: PropTypes.func.isRequired  
+        onRouteChange: PropTypes.func.isRequired,
+        loadUser: PropTypes.func.isRequired  
 
     }
 
@@ -30,7 +31,7 @@ class Signin extends React.Component {
 
     onSubmitSignIn = () => {
 
-        const { onRouteChange } = this.props;
+        const { onRouteChange, loadUser } = this.props;
         const { signInEmail: email, signInPassword: password } = this.state;
         
         fetch('http://localhost:3001/signin', {
@@ -42,10 +43,11 @@ class Signin extends React.Component {
             })
         })
             .then(res => res.json())
-            .then((res) => {
+            .then((user) => {
 
-                if (res === 'success') { 
+                if (user.id) { 
 
+                    loadUser(user);
                     onRouteChange('home'); 
 
                 }
