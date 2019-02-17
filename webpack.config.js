@@ -3,10 +3,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (env) => {
 
+    console.log(env);
     const isProduction = env === 'production';
     const CSSExtract = new ExtractTextPlugin('css/styles.css');
 
     return {
+        mode: env,
         entry: ['babel-polyfill', './src/app.js'],
         output: {
             path: path.join(__dirname, 'public'),
