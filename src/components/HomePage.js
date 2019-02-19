@@ -131,7 +131,6 @@ class HomePage extends React.Component {
                                 
                                 this.setState({ user: userCopy });
                                 
-                            
                             });
 
                     
