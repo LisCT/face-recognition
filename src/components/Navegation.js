@@ -9,7 +9,7 @@ const Navegation = ({ onRouteChange, isSingedIn }) => (
                 <input 
                     type="submit" 
                     value="Sign out"
-                    onClick={() => onRouteChange('signin')}
+                    onClick={() => onRouteChange('signout')}
                 />
             )
             : (

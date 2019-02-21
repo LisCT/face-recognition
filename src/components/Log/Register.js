@@ -51,7 +51,7 @@ class Register extends React.Component {
             .then((user) => {
 
                 // need validation no emptyinput 
-                if (user.email !== '') { 
+                if (user.id) { 
 
                     loadUser(user);
                     onRouteChange('home');    

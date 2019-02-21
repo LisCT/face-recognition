@@ -1,5 +1,4 @@
 import React from 'react';
-import Clarifai from 'clarifai';
 import Navegation from './Navegation';
 import Logo from './Logo';
 import ImageLinkForm from './ImageLinkForm';
@@ -8,28 +7,24 @@ import FaceRecognition from './FaceRecognition';
 import Signin from './Log/Singin';
 import Register from './Log/Register';
 
-const app = new Clarifai.App({
-    apiKey: '72bf4f7c90684ecd88498c2e8b44931a'
-});
+const initialState = {
+    input: '',
+    imageUrl: '',
+    box: {},
+    route: 'signin',
+    isSingedIn: false,
+    user: {
+        id: '',
+        name: '',
+        password: '',
+        entries: 0,
+        joined: ''
+    }
+};
 
 class HomePage extends React.Component {
 
-    state = {
-
-        input: '',
-        imageUrl: '',
-        box: {},
-        route: 'signin',
-        isSingedIn: false,
-        user: {
-            id: '',
-            name: '',
-            password: '',
-            entries: 0,
-            joined: ''
-        }
-
-    }
+    state = initialState;
 
      // creating an instace of the item to get the element
      imgRef = React.createRef();
@@ -104,9 +99,16 @@ class HomePage extends React.Component {
             // inside a callback to be able to use it right after has been updated
             const { imageUrl } = this.state;
 
-            // face recognition happened here
-            app.models
-                .predict(Clarifai.FACE_DETECT_MODEL, imageUrl) // second paramether url image
+            // inside a callback to be able to use it right after has been updated
+            fetch('http://localhost:3001/imageurl', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: (JSON.stringify({
+                    imageUrl
+                }))
+
+            })
+                .then(response => response.json())
                 .then((response) => {
                     
                     if (response) {
@@ -131,7 +133,8 @@ class HomePage extends React.Component {
                                 
                                 this.setState({ user: userCopy });
                                 
-                            });
+                            })
+                            .catch(console.log);
 
                     
                     }
@@ -147,9 +150,9 @@ class HomePage extends React.Component {
 
     onRouteChange = (route) => {
         
-        if (route !== 'home') {
+        if (route === 'signout') {
 
-            this.setState({ isSingedIn: false }); 
+            this.setState(initialState); 
 
         } else {
 
