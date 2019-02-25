@@ -8,16 +8,16 @@ const FaceRecognition = ({ imageUrl, imgRef, box }) => (
           && (
               <div className="bounding_box__wrapper">
                   <img
+                      className="bounding_box__image"
                       src={imageUrl} 
                       ref={imgRef} 
                       alt="dectected-preview"
-                      width="500px" 
                       height="auto"
                   /> 
                   
                   {Object.keys(box).map(key => (
                       <div
-                          className="bounding-box" 
+                          className="bounding_box" 
                           key={key}
                           style={{ 
                               top: box[key].topRow,

@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 
 const Rank = ({ name, entries }) => (
 
-    <div>
-        <h2>
-            {`${name}, your current rank is: ${entries}`}
-        </h2>
+    <div className="detection__rank">
+        <h1 className="detection__rank_copy">
+            Hello,
+            {name}
+        </h1>
+        <p className="detection__rank_description">
+            your current rank is:
+            {' '}
+            <span className="lighter">
+                {entries}
+            </span>
+        </p>
     </div>
 
 );

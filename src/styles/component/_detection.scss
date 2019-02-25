@@ -1,0 +1,48 @@
+.detection{
+
+    &_wrapper{
+
+        max-width: 450px;
+        margin: auto;
+        padding: 3rem 5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    &__rank{
+
+        margin-bottom: 4.5em;
+
+        &_copy{
+
+            font-size: 2.5em;
+            font-weight: 600;
+            text-transform: capitalize;
+
+            @media screen and (min-width: 414px) {
+                
+                font-size: 3.5em;
+
+            }
+
+        }
+
+
+        &_copy, &_description{
+        
+            padding: 0;
+            margin: 0;
+
+        }
+
+        &_description{
+
+            margin:  -0.5em;
+            color: $white;
+            font-weight: 200;
+
+        }
+
+    }
+
+}

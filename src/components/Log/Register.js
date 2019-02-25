@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../Header';
 
 class Register extends React.Component { 
 
@@ -68,59 +69,66 @@ class Register extends React.Component {
 
         return (
 
-            <div>
+            <div className="form__wrapper">
+                <Header />
                 <div>
-                    <h3>Register</h3>
-                    <div>
-                        <label htmlFor="name">
-                    Name
+                    <h1 className="form__title">Register</h1>
+                    <div className="form__container_label">
+                        <label className="form__input_label" htmlFor="name">
+                            Name
                             <input 
+                                className="form__input_text"
                                 type="text" 
                                 name="name" 
                                 id="name" 
-                                placeholder="name"
+                                placeholder="John"
                                 onChange={this.onNameChange}
                             />
                         </label>
                     </div>
-                    <div>
-                        <label htmlFor="email">
-                    Email
+                    <div className="form__container_label">
+                        <label className="form__input_label" htmlFor="email">
+                            Email
                             <input 
+                                className="form__input_text"
                                 type="email" 
                                 name="email" 
                                 id="email" 
-                                placeholder="email"
+                                placeholder="john@doe.com"
                                 onChange={this.onEmailChange}
                             />
                         </label>
                     </div>
-                    <div>
-                        <label htmlFor="password">
-                    Password
+                    <div className="form__container_label">
+                        <label className="form__input_label" htmlFor="password">
+                            Password
                             <input
+                                className="form__input_text"
                                 type="password"
                                 name="password"
                                 id="password"
-                                placeholder="password"
+                                placeholder="Pass****"
                                 onChange={this.onPasswordChange}
                             />
                         </label>
                     </div>
                 </div>
-                <div>
+                <div className="form__container_buttons">
                     <input 
+                        className="form__input_button"
                         type="submit" 
                         value="Register" 
                         onClick={this.onSubmitRegister} 
                     />
-                </div>
-                <div>
-                    <input 
-                        type="submit" 
-                        value="Sign in" 
-                        onClick={() => onRouteChange('signin')} 
-                    />
+               
+                    <div>
+                        <input 
+                            className="form__input_link"
+                            type="submit" 
+                            value="Have an account? Sign in." 
+                            onClick={() => onRouteChange('signin')} 
+                        />
+                    </div>
                 </div>
             </div>
         );

@@ -1,0 +1,29 @@
+.copyright{ 
+
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.712);
+
+    &__copy{
+
+        color: darken($white, 40%);
+        font-weight: 200;
+        margin: 0.5em;
+        font-size: 0.8em;
+
+    }
+
+    &__link{
+
+        color: $white;
+        cursor: pointer;
+        transition: .3s color ease-in-out;
+
+        &:hover{
+
+            color: $main;
+
+        }
+
+    }
+
+}

@@ -1,0 +1,20 @@
+.bounding_box{
+
+    position: absolute;
+    box-shadow: 0 0 0 3px #149df2 inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer;
+
+    &__wrapper{
+        margin: 2em auto;
+        position: relative;
+         //width: 250px; /* same size ad the image of faceRecognition.js */
+    }
+
+    &__image{
+        width:100%;
+    }
+
+}

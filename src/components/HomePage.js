@@ -6,6 +6,7 @@ import Rank from './Rank';
 import FaceRecognition from './FaceRecognition';
 import Signin from './Log/Singin';
 import Register from './Log/Register';
+import Copyright from './copyright';
 
 const initialState = {
     input: '',
@@ -65,8 +66,8 @@ class HomePage extends React.Component {
          
             const clarifaiFace = face.region_info.bounding_box;
             const image = this.imgRef.current;
-            const width = Number(image.width);
-            const height = Number(image.height);
+            const width = Number(image.offsetWidth);
+            const height = Number(image.offsetHeight);
             
             boundingBox[face.id] = {
 
@@ -176,15 +177,17 @@ class HomePage extends React.Component {
 
         return (
 
-            <div>
-                <Logo />
-                <Navegation 
-                    onRouteChange={this.onRouteChange}
-                    isSingedIn={isSingedIn}
-                />
+            <div className={route === 'home' ? 'main home' : 'main logs'}>
+                <div className="main__menu">
+                    <Logo />
+                    <Navegation 
+                        onRouteChange={this.onRouteChange}
+                        isSingedIn={isSingedIn}
+                    />
+                </div>
                 { route === 'home'
                     ? (
-                        <div>
+                        <div className="detection_wrapper">
                             <Rank 
                                 name={name}
                                 entries={entries}
@@ -202,7 +205,7 @@ class HomePage extends React.Component {
                     )
 
                     : [( 
-                        route === 'signin'
+                        route === 'signin' || route === 'signout'
                             ? (
                                 <Signin
                                     key="signin"
@@ -220,6 +223,7 @@ class HomePage extends React.Component {
                     )]
 
                 }
+                <Copyright />
             </div>
 
         );

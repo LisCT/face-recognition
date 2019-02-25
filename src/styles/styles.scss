@@ -1,5 +1,16 @@
+@import "base/mixins";
+@import "base/variables";
+@import "base/fonts";
+
 /* Base files. */
 @import "base/base-styles";
 
+/* Forms files. */
+@import "base/forms";
+
 /* Component */
-@import "component/faceRecognition.scss";
+@import "component/header";
+@import "component/copyright";
+@import "component/logo";
+@import "component/detection";
+@import "component/face-recognition";

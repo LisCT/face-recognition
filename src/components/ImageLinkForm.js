@@ -4,11 +4,23 @@ import PropTypes from 'prop-types';
 const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => (
 
     <div>
-        <p>Will detect faces in your pictures. Give it a try.</p>
+
+        <p className="form__subtitle">It will detect faces in your pictures. Give it a try.</p>
 
         <div>
-            <input type="text" onChange={onInputChange} />
-            <button type="submit" onClick={onPictureSubmit}> Detect </button>
+            <input 
+                className="form__input_text" 
+                type="text" 
+                onChange={onInputChange}
+            />
+            <div className="form__container_buttons">
+                <input 
+                    className="form__input_button"
+                    type="submit" 
+                    value="Detect" 
+                    onClick={onPictureSubmit}
+                />
+            </div>
         </div>
     </div>
     

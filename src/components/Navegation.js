@@ -4,27 +4,14 @@ import PropTypes from 'prop-types';
 const Navegation = ({ onRouteChange, isSingedIn }) => (
 
     <nav>
-        {isSingedIn 
-            ? (
+        {isSingedIn
+            && (
                 <input 
+                    className="form__input_link"
                     type="submit" 
                     value="Sign out"
                     onClick={() => onRouteChange('signout')}
                 />
-            )
-            : (
-                <div>
-                    <input 
-                        type="submit" 
-                        value="Register"
-                        onClick={() => onRouteChange('register')}
-                    />
-                    <input 
-                        type="submit" 
-                        value="Sign in"
-                        onClick={() => onRouteChange('signin')}
-                    />
-                </div>
             )
         }
     </nav>
