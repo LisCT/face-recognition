@@ -9,9 +9,9 @@
   },
   "scripts": {
     "server": "live-server public",
-    "start": "webpack",
+    "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "dev-server": "webpack-dev-server --env development --disableHostCheck=true"
+    "start": "webpack-dev-server --env development --disableHostCheck=true"
   },
   "dependencies": {
     "clarifai": "^2.9.0",
@@ -19,7 +19,9 @@
     "normalize.css": "7.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
     "babel-cli": "6.24.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
