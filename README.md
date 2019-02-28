@@ -1,6 +1,10 @@
 # Face-Recognition Application
 
+http://facefinder.surge.sh/
+
 Project that identify the face of a person in a picture.
+
+React / Express / PostgreSql
 
 ## Repository
 
@@ -45,7 +49,8 @@ yarn run build:prod or npm run build:prod
 ## Changelog
 
 ```bash
-    * v1.0.1 
+    - Need to add validations and warning msj front-end.
+    * v1.0.1 initial Released
 ```
 ##  Dependencies
 
