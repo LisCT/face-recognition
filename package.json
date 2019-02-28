@@ -9,7 +9,7 @@
   },
   "scripts": {
     "server": "live-server public",
-    "build:dev": "webpack",
+    "start": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server --env development --disableHostCheck=true"
   },
