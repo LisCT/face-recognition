@@ -26,16 +26,18 @@ yarn run build:dev or npm run build:dev
 yarn run dev-server or npm run dev-server
 ```
 
-alternative to 3 Run Server (Development Live changes)
-
-```bash
-yarn run server or npm run server
-```
-
 Running local
 
 ```bash
 http://localhost:8080
+```
+
+Express Server
+
+```bash
+    cd server-api
+    yarn start or npm start
+    -This server is already set for heroku ambience.
 ```
 
 ## Production
