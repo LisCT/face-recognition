@@ -2,11 +2,11 @@
 
 http://facefinder.surge.sh/
 
-Project that identify the face of a person in a picture.
+Project that identify the faces of people in a picture.
 
 React / Express / PostgreSql
 
-## Repository
+## Start
 
 1. Install dependencies
 
@@ -14,19 +14,21 @@ React / Express / PostgreSql
 yarn install or npm install
 ```
 
-2. Run Build Development (Compile Public folder)
+##Scripts
+
+Build Development (Compile Public folder)
 
 ```bash
 yarn run build:dev or npm run build:dev
 ```
 
-3. Run Development Server (Test server ambience)
+Development Server (Test server ambience)
 
 ```bash
 yarn run dev-server or npm run dev-server
 ```
 
-Running local
+Front-End
 
 ```bash
 http://localhost:8080
@@ -42,7 +44,7 @@ Express Server
 
 ## Production
 
-Run Build (Compile Public folder)
+Build (Compile Public folder)
 
 ```bash
 yarn run build:prod or npm run build:prod
@@ -51,7 +53,6 @@ yarn run build:prod or npm run build:prod
 ## Changelog
 
 ```bash
-    - Need to add validations and warning msj front-end.
     * v1.0.1 initial Released
 ```
 ##  Dependencies
@@ -86,5 +87,10 @@ yarn run build:prod or npm run build:prod
 * "eslint-plugin-import": "2.7.0",
 * "eslint-plugin-jsx-a11y": "6.0.1",
 * "eslint-plugin-react": "7.4.0"
+
+##Todo
+
+* Need to add validations and warning msj front-end.
+* sign out state needs to be fixed.
 
 
