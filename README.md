@@ -14,7 +14,7 @@ React / Express / PostgreSql
 yarn install or npm install
 ```
 
-##Scripts
+## Scripts
 
 Build Development (Compile Public folder)
 
@@ -88,7 +88,7 @@ yarn run build:prod or npm run build:prod
 * "eslint-plugin-jsx-a11y": "6.0.1",
 * "eslint-plugin-react": "7.4.0"
 
-##Todo
+## Todo
 
 * Need to add validations and warning msj front-end.
 * sign out state needs to be fixed.
