@@ -101,7 +101,7 @@ class HomePage extends React.Component {
             const { imageUrl } = this.state;
 
             // inside a callback to be able to use it right after has been updated
-            fetch('http://localhost:3001/imageurl', {
+            fetch('https://enigmatic-peak-27513.herokuapp.com/imageurl', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: (JSON.stringify({
@@ -114,7 +114,7 @@ class HomePage extends React.Component {
                     
                     if (response) {
 
-                        fetch('http://localhost:3001/image', {
+                        fetch('https://enigmatic-peak-27513.herokuapp.com/image', {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: (JSON.stringify({

@@ -6,6 +6,7 @@ const Rank = ({ name, entries }) => (
     <div className="detection__rank">
         <h1 className="detection__rank_copy">
             Hello,
+            {' '}
             {name}
         </h1>
         <p className="detection__rank_description">
