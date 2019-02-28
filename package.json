@@ -19,9 +19,7 @@
     "normalize.css": "7.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
-  },
-  "devDependencies": {
+    "react-dom": "^16.4.0",
     "babel-cli": "6.24.1",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
