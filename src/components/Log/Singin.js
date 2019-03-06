@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header';
+import FormErrors from './FormError';
 
 class Signin extends React.Component { 
 
@@ -13,27 +14,70 @@ class Signin extends React.Component {
 
     state = {
 
-        signInEmail: '',
-        signInPassword: ''
+        email: '',
+        password: '',
+        formErrors: { email: '', password: '' },
+        emailValid: false,
+        passwordValid: false,
+        formValid: false,
+        wrong: false
 
     }
 
-    onEmailChange = (event) => {
+    validateField = (fieldName, value) => {
 
-        this.setState({ signInEmail: event.target.value });
-
-    }
+        const { formErrors } = this.state;
+        const fieldValidationErrors = formErrors;
+        let { emailValid, passwordValid } = this.state;
     
-    onPasswordChange = (event) => {
+        switch (fieldName) {
 
-        this.setState({ signInPassword: event.target.value });
+        case 'email':
+            emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+            fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+            break;
+        case 'password':
+            passwordValid = value !== '' && value.length >= 1;
+            fieldValidationErrors.password = passwordValid ? '' : ' is required';
+            break;
+        default:
+            break;
+        
+        }
+        this.setState({
+            formErrors: fieldValidationErrors,
+            emailValid,
+            passwordValid
+        }, this.validateForm);
+    
+    }
+
+    validateForm = () => {
+
+        const { emailValid, passwordValid } = this.state;
+
+        this.setState({ formValid: emailValid && passwordValid });
+    
+    }
+
+    handleInput = (event) => {
+
+        const { name } = event.target;
+        const { value } = event.target;
+
+        this.setState({ [name]: value, wrong: false }, 
+            () => {
+
+                this.validateField(name, value); 
+
+            });
 
     }
 
     onSubmitSignIn = () => {
 
         const { onRouteChange, loadUser } = this.props;
-        const { signInEmail: email, signInPassword: password } = this.state;
+        const { email, password } = this.state;
         
         fetch('https://enigmatic-peak-27513.herokuapp.com/signin', {
             method: 'POST',
@@ -48,9 +92,16 @@ class Signin extends React.Component {
 
                 if (user.id) { 
 
+                    this.setState({ wrong: false });
+
                     loadUser(user);
                     onRouteChange('home'); 
 
+
+                } else {
+                    
+                    this.setState({ wrong: true });
+                
                 }
             
             });
@@ -60,6 +111,7 @@ class Signin extends React.Component {
     render() {
 
         const { onRouteChange } = this.props;
+        const { formErrors, formValid, wrong } = this.state;
 
         return (
 
@@ -67,6 +119,16 @@ class Signin extends React.Component {
                 <Header />
                 <div>
                     <h1 className="form__title">Sign In</h1>
+                    <FormErrors formErrors={formErrors} />
+                    { wrong && (
+                        <p className="form__errors">
+                            Your info is incorrect. Is your CAPS lock on? 
+                            If you are still stuck, you can contact
+                            {' '}
+                            <a className="form__errors--link" href="mailto: lcruztaveras@gmail.com">Support.</a>
+
+                        </p>
+                    )}
                     <div className="form__container_label">
                         <label className="form__input_label" htmlFor="email">
                             Email
@@ -76,7 +138,7 @@ class Signin extends React.Component {
                                 name="email" 
                                 id="email" 
                                 placeholder="john@doe.com" 
-                                onChange={this.onEmailChange}
+                                onChange={this.handleInput}
                             />
                         </label>
                     </div>
@@ -89,7 +151,7 @@ class Signin extends React.Component {
                                 name="password" 
                                 id="password" 
                                 placeholder="Pass****"
-                                onChange={this.onPasswordChange}
+                                onChange={this.handleInput}
                             />
                         </label>
                     </div>
@@ -99,6 +161,7 @@ class Signin extends React.Component {
                         className="form__input_button"
                         type="submit" 
                         value="Sign in" 
+                        disabled={!formValid}
                         onClick={this.onSubmitSignIn}
                     />
                     <div>

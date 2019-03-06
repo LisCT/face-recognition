@@ -54,6 +54,10 @@ yarn run build:prod or npm run build:prod
 
 ```bash
     * v1.0.1 initial Released
+    * v1.0.3 fixing bugs: 
+             sign out state validation,
+             Inputs validations and warning msj,
+             Adding Favicon.
 ```
 ##  Dependencies
 
@@ -90,7 +94,7 @@ yarn run build:prod or npm run build:prod
 
 ## Todo
 
-* Need to add validations and warning msj front-end.
-* sign out state needs to be fixed.
+* Loading element need to be added.
+* Validation Refactor.
 
 

@@ -46,6 +46,14 @@ hr {
   border-width: 0;
 }
 
+input[type="submit"]:disabled {
+
+  background: darken($gray, 20%);
+  opacity: .5;
+  cursor: not-allowed
+
+}
+
 // Main PAGE 
 
 .main{

@@ -151,13 +151,13 @@ class HomePage extends React.Component {
 
     onRouteChange = (route) => {
         
-        if (route === 'signout') {
-
-            this.setState(initialState); 
-
-        } else {
+        if (route === 'home') {
 
             this.setState({ isSingedIn: true }); 
+            
+        } else {
+            
+            this.setState(initialState); 
         
         }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Header';
+import FormErrors from './FormError';
 
 class Register extends React.Component { 
 
@@ -13,25 +14,69 @@ class Register extends React.Component {
 
         name: '',
         email: '',
-        password: ''
+        password: '',
+        formErrors: { email: '', password: '', name: '' },
+        emailValid: false,
+        passwordValid: false,
+        nameValid: false,
+        formValid: false,
+        wrong: false
+
     }
 
-    onNameChange = (event) => {
+    validateField = (fieldName, value) => {
 
-        this.setState({ name: event.target.value });
+        const { formErrors } = this.state;
+        const fieldValidationErrors = formErrors;
+        let { emailValid, passwordValid, nameValid } = this.state;
+    
+        switch (fieldName) {
+
+        case 'email':
+            emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+            fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+            break;
+        case 'password':
+            passwordValid = value.length >= 6;
+            fieldValidationErrors.password = passwordValid ? '' : ' is too short';
+            break;
+        case 'name':
+            nameValid = value !== '' && value.length >= 2;
+            fieldValidationErrors.name = nameValid ? '' : ' is invalid';
+            break;
+        default:
+            break;
+        
+        }
+        this.setState({
+            formErrors: fieldValidationErrors,
+            emailValid,
+            passwordValid,
+            nameValid
+        }, this.validateForm);
     
     }
 
-    onEmailChange = (event) => {
+    validateForm = () => {
 
-        this.setState({ email: event.target.value });
+        const { emailValid, passwordValid, nameValid } = this.state;
+
+        this.setState({ formValid: emailValid && passwordValid && nameValid });
     
     }
 
-    onPasswordChange = (event) => {
+    handleInput = (event) => {
 
-        this.setState({ password: event.target.value });
-    
+        const { name } = event.target;
+        const { value } = event.target;
+
+        this.setState({ [name]: value, wrong: false }, 
+            () => {
+
+                this.validateField(name, value); 
+
+            });
+
     }
 
     onSubmitRegister = () => {
@@ -54,9 +99,16 @@ class Register extends React.Component {
                 // need validation no emptyinput 
                 if (user.id) { 
 
+                    this.setState({ wrong: false });
+                    
                     loadUser(user);
                     onRouteChange('home');    
 
+
+                } else {
+
+                    this.setState({ wrong: true });
+                
                 }
             
             });
@@ -66,6 +118,7 @@ class Register extends React.Component {
     render() {
 
         const { onRouteChange } = this.props;
+        const { formErrors, formValid, wrong } = this.state;
 
         return (
 
@@ -73,6 +126,8 @@ class Register extends React.Component {
                 <Header />
                 <div>
                     <h1 className="form__title">Register</h1>
+                    <FormErrors formErrors={formErrors} />
+                    { wrong && <p className="form__errors">Sorry, something went wrong. Try again later.</p>}
                     <div className="form__container_label">
                         <label className="form__input_label" htmlFor="name">
                             Name
@@ -82,7 +137,7 @@ class Register extends React.Component {
                                 name="name" 
                                 id="name" 
                                 placeholder="John"
-                                onChange={this.onNameChange}
+                                onChange={this.handleInput}
                             />
                         </label>
                     </div>
@@ -95,7 +150,7 @@ class Register extends React.Component {
                                 name="email" 
                                 id="email" 
                                 placeholder="john@doe.com"
-                                onChange={this.onEmailChange}
+                                onChange={this.handleInput}
                             />
                         </label>
                     </div>
@@ -108,7 +163,7 @@ class Register extends React.Component {
                                 name="password"
                                 id="password"
                                 placeholder="Pass****"
-                                onChange={this.onPasswordChange}
+                                onChange={this.handleInput}
                             />
                         </label>
                     </div>
@@ -116,6 +171,7 @@ class Register extends React.Component {
                 <div className="form__container_buttons">
                     <input 
                         className="form__input_button"
+                        disabled={!formValid}
                         type="submit" 
                         value="Register" 
                         onClick={this.onSubmitRegister} 

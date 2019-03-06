@@ -1,6 +1,6 @@
 {
   "name": "face-recognition",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "author": "Lisbel Cruz <lcruztaveras@gmail.com>",
   "license": "MIT",

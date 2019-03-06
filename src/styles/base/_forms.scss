@@ -9,6 +9,20 @@
 
     }
 
+    &__errors{
+
+        text-align: center;
+        color: $main;
+
+        &--link{
+
+            text-align: center;
+            color: lighten($main, 20%);
+            
+        }
+
+    }
+
     &__title{
 
         text-align: center;

@@ -11,6 +11,7 @@ const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => (
             <input 
                 className="form__input_text" 
                 type="text" 
+                placeholder="https://faceimage....."
                 onChange={onInputChange}
             />
             <div className="form__container_buttons">
