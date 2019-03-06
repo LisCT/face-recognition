@@ -11,8 +11,13 @@
     "server": "live-server public",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "dev-server": "webpack-dev-server --env development --disableHostCheck=true"
+    "dev-server": "webpack-dev-server --env development --disableHostCheck=true",
+    "prestart": "eslint src/app.js"
   },
+  "pre-commit": [
+    "prestart",
+    "build:prod"
+  ],
   "dependencies": {
     "clarifai": "^2.9.0",
     "node-sass": "^4.9.0",
